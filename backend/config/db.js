@@ -3,7 +3,7 @@ import "dotenv/config"
 const {Pool} = pg;
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.NEON_URL
 })
 
 export async function createTable(){
