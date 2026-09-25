@@ -1,24 +1,27 @@
-import pg from "pg";
-import "dotenv/config"
-const {Pool} = pg;
+import pg from 'pg';
+import dotenv from 'dotenv';
+
+const { Pool } = pg;
+
+dotenv.config();
 
 const pool = new Pool({
-    connectionString: process.env.NEON_URL
-})
+    connectionString: process.env.NEON_URL,
+    ssl: process.env.NEON_URL && process.env.NEON_URL.includes('sslmode=') ? undefined : { rejectUnauthorized: false }
+});
 
-export async function createTable(){
-    const result = await pool.query(
-        `CREATE TABLE IF NOT EXISTS profiles(
-        id INT UNIQUE PRIMARY KEY,
-        name VARCHAR(50) NOT NULL,
-        email VARCHAR(50) UNIQUE NOT NULL,
-        phone VARCHAR(50) NOT NULL,
-        address VARCHAR(100) NOT NULL,
-        age INTEGER NOT NULL,
-        createdAt DATE DEFAULT_TIMESTAMP,
-        updatedAt DATE DEFAULT_TIMESTAMP
-    )`
-    )
-}
+const createTable = async () => {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS profiles (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            phone VARCHAR(255) NOT NULL,
+            address TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+};
 
+export { pool, createTable };
 export default pool;
