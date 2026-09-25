@@ -14,7 +14,7 @@ const EditProfile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/profiles/${id}`)
+        axios.get(`https://techincal-test-by-gurmeet-sir-1.onrender.com/api/profiles/${id}`)
             .then((response) => {
                 const data = response.data;
                 setName(data.name || "");
@@ -34,7 +34,7 @@ const EditProfile = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
 
-        axios.put(`http://localhost:5000/api/profiles/${id}`, { name, email, phone, address })
+        axios.put(`https://techincal-test-by-gurmeet-sir-1.onrender.com/api/profiles/${id}`, { name, email, phone, address })
             .then(() => {
                 alert("Profile updated successfully!");
                 navigate("/profiles");

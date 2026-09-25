@@ -10,7 +10,7 @@ const GetProfile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/profiles")
+        axios.get("https://techincal-test-by-gurmeet-sir-1.onrender.com/api/profiles")
             .then((response) => {
                 setProfiles(response.data);
                 setError("");
